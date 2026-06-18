@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Физиологический Дашборд</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <h2>Параметры</h2>
+            
+            <form id="metrics-form" class="control-group">
+                <h3>1. Физические метрики</h3>
+                
+                <div class="input-field">
+                    <label for="gender">Пол:</label>
+                    <select id="gender" required>
+                        <option value="male">Мужской</option>
+                        <option value="female">Женский</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <label for="age">Возраст (лет):</label>
+                    <input type="number" id="age" min="14" max="100" required placeholder="Например: 25">
+                </div>
+
+                <div class="input-field">
+                    <label for="weight">Текущий вес (кг):</label>
+                    <input type="number" id="weight" min="30" max="200" required placeholder="Например: 75">
+                </div>
+
+                <div class="input-field">
+                    <label for="target-weight">Желаемый вес (кг):</label>
+                    <input type="number" id="target-weight" min="30" max="200" required placeholder="Например: 85">
+                </div>
+
+                <div class="input-field">
+                    <label for="target-days">Срок достижения цели (дней):</label>
+                    <input type="number" id="target-days" min="14" max="365" required placeholder="Например: 90">
+                </div>
+
+
+                <div class="input-field">
+                    <label for="height">Рост (см):</label>
+                    <input type="number" id="height" min="120" max="230" required placeholder="Например: 180">
+                </div>
+
+                <div class="input-field">
+                    <label for="activity">Активность:</label>
+                    <select id="activity" required>
+                        <option value="1.2">Минимальная (сидячая работа, без спорта)</option>
+                        <option value="1.375">Низкая (легкие тренировки 1-3 раза в неделю)</option>
+                        <option value="1.55">Средняя (тренировки 3-5 раз в неделю)</option>
+                        <option value="1.725">Высокая (интенсивные нагрузки 6-7 раз в неделю)</option>
+                        <option value="1.9">Экстремальная (тяжелая физическая работа + спорт)</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="control-group">
+                <h3>2. Фильтры тренировки</h3>
+                
+                <div class="input-field">
+                    <label for="goal">Цель:</label>
+                    <select id="goal">
+                        <option value="loss">Сброс веса (дефицит)</option>
+                        <option value="maintenance">Поддержание формы</option>
+                        <option value="gain">Набор массы (профицит)</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <label>Группа мышц (можно выбрать несколько):</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="chest" class="mg-checkbox" checked> Грудь</label>
+                        <label><input type="checkbox" value="back" class="mg-checkbox" checked> Спина</label>
+                        <label><input type="checkbox" value="legs" class="mg-checkbox"> Ноги</label>
+                        <label><input type="checkbox" value="arms" class="mg-checkbox"> Руки </label>
+                        <label><input type="checkbox" value="shoulders" class="mg-checkbox"> Плечи </label>
+                        <label><input type="checkbox" value="abs" class="mg-checkbox"> Пресс </label>
+                    </div>
+                </div>
+
+
+                <div class="input-field">
+                    <label>Доступный инвентарь (можно выбрать несколько):</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="bodyweight" class="eq-checkbox" checked> Коврик (Свой вес)</label>
+                        <label><input type="checkbox" value="pullup" class="eq-checkbox"> Турник</label>
+                        <label><input type="checkbox" value="dips" class="eq-checkbox"> брусья</label>
+                        <label><input type="checkbox" value="dumbbells" class="eq-checkbox"> Гантели</label>
+                        <label><input type="checkbox" value="kettlebells" class="eq-checkbox"> Гири</label>
+                        <label><input type="checkbox" value="bands" class="eq-checkbox"> Фитнес-резинки</label>
+                        <label><input type="checkbox" value="gym" class="eq-checkbox"> Тренажерный зал</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <button type="submit" form="metrics-form" id="calculate-btn" class="main-btn">Рассчитать и подобрать</button>
+        </aside>
+
+        <main class="main-content">
+            <section class="analytics-section">
+                <h2>Аналитика метаболизма</h2>
+                <div id="advice-box" class="advice-box"></div>
+                <div class="calories-display">
+                    Суточная норма: <span id="calories-value">0</span> ккал
+                </div>
+                
+                <div class="macros-container">
+                    <div class="macro-bar-wrapper">
+                        <div class="macro-label">Белки: <span id="protein-value">0</span>г</div>
+                        <div class="progress-bg">
+                            <div id="protein-bar" class="progress-fill protein"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="macro-bar-wrapper">
+                        <div class="macro-label">Жиры: <span id="fat-value">0</span>г</div>
+                        <div class="progress-bg">
+                            <div id="fat-bar" class="progress-fill fat"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="macro-bar-wrapper">
+                        <div class="macro-label">Углеводы: <span id="carbs-value">0</span>г</div>
+                        <div class="progress-bg">
+                            <div id="carbs-bar" class="progress-fill carbs"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercises-section">
+                <h2>Рекомендуемые упражнения</h2>
+                <div id="exercises-grid" class="exercises-grid">
+                    <p class="placeholder-text">Введите данные и нажмите кнопку для подбора упражнений.</p>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
